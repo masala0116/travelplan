@@ -1,0 +1,1309 @@
+/* ============================================
+   Japan Trip 2026 - 日式簡約風 (Japanese Minimal)
+   ============================================ */
+
+/* CSS Variables - 暖白色調 */
+:root {
+  /* 背景色 */
+  --bg-primary: #FAF8F5;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-warm: #F5F0E8;
+  --bg-accent: #FFF5F5;
+  
+  /* 文字色 */
+  --text-primary: #2D2D2D;
+  --text-secondary: #6B6B6B;
+  --text-muted: #999999;
+  --text-light: #BBBBBB;
+  
+  /* 強調色 */
+  --color-primary: #E8B4B8;
+  --color-accent: #D4A5A5;
+  --color-highlight: #FFE4E1;
+  
+  /* 分類色彩 */
+  --color-attraction: #7EB5A6;
+  --color-restaurant: #E8A87C;
+  --color-transport: #85A8CC;
+  --color-hotel: #C5A3CF;
+  --color-shopping: #E8B4B8;
+  --color-activity: #F0C987;
+  
+  /* 邊框 */
+  --border-color: #EEEBE6;
+  --border-light: #F5F2ED;
+  
+  /* 間距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  /* 圓角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  /* 陰影 */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
+  
+  /* 動畫 */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Noto Sans TC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================
+   Header - 簡約頂部
+   ============================================ */
+.header {
+  background: var(--bg-secondary);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+  text-align: center;
+  position: relative;
+}
+
+.header-content {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.header-label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-xs);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.logo-icon {
+  display: none;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+}
+
+.logo-year {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.header-subtitle {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-xs);
+}
+
+.settings-btn {
+  position: absolute;
+  right: var(--spacing-md);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ============================================
+   Date Selector - 橫向日曆
+   ============================================ */
+.day-selector {
+  display: flex;
+  align-items: stretch;
+  background: var(--bg-secondary);
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.day-selector::-webkit-scrollbar {
+  display: none;
+}
+
+.day-nav-btn {
+  display: none;
+}
+
+.day-chips {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  justify-content: space-around;
+  padding: 0 var(--spacing-sm);
+}
+
+.day-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  min-width: 50px;
+}
+
+.day-chip-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.day-chip-date {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.day-chip.active .day-chip-date {
+  color: var(--text-primary);
+}
+
+.day-chip.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--text-primary);
+  border-radius: 50%;
+}
+
+/* ============================================
+   Tab Navigation
+   ============================================ */
+.tab-nav {
+  display: flex;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  background: var(--bg-primary);
+}
+
+.tab-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* ============================================
+   Main Content
+   ============================================ */
+.main-content {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn var(--transition-normal);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   Day Header - 第X天
+   ============================================ */
+.day-header-section {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.day-number-vertical {
+  writing-mode: vertical-rl;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 6px;
+  padding: var(--spacing-sm) 0;
+  border-left: 2px solid var(--color-primary);
+  padding-left: var(--spacing-sm);
+}
+
+.day-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.day-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ============================================
+   Hero Card - 景點大圖卡片
+   ============================================ */
+.hero-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #a8c0ff 0%, #3f2b96 100%);
+}
+
+.hero-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+}
+
+.hero-card-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hero-card-content {
+  color: white;
+}
+
+.hero-card-location {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.hero-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   Weather Card - 天氣預報
+   ============================================ */
+.weather-card {
+  background: var(--bg-warm);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-md);
+}
+
+.weather-location {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.weather-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.weather-temp {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.weather-credit {
+  font-size: 10px;
+  color: var(--text-light);
+}
+
+.weather-forecast {
+  display: flex;
+  gap: var(--spacing-lg);
+  overflow-x: auto;
+  padding: var(--spacing-sm) 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.weather-forecast::-webkit-scrollbar {
+  display: none;
+}
+
+.weather-hour {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50px;
+}
+
+.weather-time {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.weather-icon {
+  font-size: 24px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.weather-hour-temp {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Legacy weather card support */
+.weather-details {
+  display: flex;
+  gap: var(--spacing-md);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.weather-warning {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-highlight);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: #B8860B;
+  margin-top: var(--spacing-sm);
+}
+
+/* ============================================
+   Timeline & Event Cards
+   ============================================ */
+.timeline {
+  position: relative;
+}
+
+.timeline-item {
+  margin-bottom: var(--spacing-md);
+}
+
+.timeline-dot {
+  display: none;
+}
+
+.timeline-time {
+  display: none;
+}
+
+/* Event Card - 時間軸卡片 */
+.event-card {
+  display: flex;
+  align-items: stretch;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.event-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Card Left Accent */
+.event-card::before {
+  content: '';
+  width: 4px;
+  flex-shrink: 0;
+}
+
+.event-card.attraction::before { background: var(--color-attraction); }
+.event-card.restaurant::before { background: var(--color-restaurant); }
+.event-card.transport::before { background: var(--color-transport); }
+.event-card.hotel::before { background: var(--color-hotel); }
+.event-card.shopping::before { background: var(--color-shopping); }
+.event-card.activity::before { background: var(--color-activity); }
+
+/* Card Time Block */
+.card-time-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  min-width: 65px;
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border-color);
+}
+
+.card-time-icon {
+  font-size: 18px;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-muted);
+}
+
+.card-start-time {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.card-time-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Card Main Content */
+.card-main {
+  flex: 1;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.card-icon {
+  font-size: 14px;
+}
+
+.card-type {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.event-card.attraction .card-type { 
+  background: rgba(126, 181, 166, 0.15); 
+  color: var(--color-attraction); 
+}
+.event-card.restaurant .card-type { 
+  background: rgba(232, 168, 124, 0.15); 
+  color: var(--color-restaurant); 
+}
+.event-card.transport .card-type { 
+  background: rgba(133, 168, 204, 0.15); 
+  color: var(--color-transport); 
+}
+.event-card.hotel .card-type { 
+  background: rgba(197, 163, 207, 0.15); 
+  color: var(--color-hotel); 
+}
+.event-card.shopping .card-type { 
+  background: rgba(232, 180, 184, 0.15); 
+  color: var(--color-shopping); 
+}
+.event-card.activity .card-type { 
+  background: rgba(240, 201, 135, 0.15); 
+  color: var(--color-activity); 
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.card-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.card-description {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+/* Card Right - End Time */
+.card-end-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  min-width: 55px;
+  border-left: 1px solid var(--border-color);
+}
+
+.card-end-time {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.card-end-label {
+  font-size: 9px;
+  color: var(--text-muted);
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-sm);
+}
+
+.tag {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.tag-must-eat {
+  background: rgba(232, 168, 124, 0.15);
+  color: var(--color-restaurant);
+}
+
+.tag-must-order {
+  background: rgba(240, 201, 135, 0.15);
+  color: #B8860B;
+}
+
+.tag-must-photo {
+  background: rgba(126, 181, 166, 0.15);
+  color: var(--color-attraction);
+}
+
+.tag-warning {
+  background: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+}
+
+.tag-tip {
+  background: rgba(133, 168, 204, 0.15);
+  color: var(--color-transport);
+}
+
+/* Navigation Button */
+.nav-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: var(--spacing-sm);
+}
+
+.nav-button:hover {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   Info Tab - 資訊頁面
+   ============================================ */
+.info-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+}
+
+/* Flight Info */
+.flight-info {
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.flight-info:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.flight-info:first-child {
+  padding-top: 0;
+}
+
+.flight-code {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-transport);
+  margin-bottom: var(--spacing-xs);
+}
+
+.flight-route {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.flight-arrow {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.flight-details {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Hotel Info */
+.hotel-item {
+  padding: var(--spacing-md) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.hotel-item:last-child {
+  border-bottom: none;
+}
+
+.hotel-item:first-child {
+  padding-top: 0;
+}
+
+.hotel-days {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-hotel);
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+}
+
+.hotel-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.hotel-address,
+.hotel-phone {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+/* Emergency */
+.emergency-category {
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.emergency-category:last-child {
+  border-bottom: none;
+}
+
+.emergency-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.emergency-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 3px 0;
+}
+
+.emergency-number {
+  font-weight: 600;
+  color: var(--color-transport);
+  text-decoration: none;
+}
+
+/* ============================================
+   Budget Tab - 記帳頁面
+   ============================================ */
+.budget-overview {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+  color: white;
+  text-align: center;
+}
+
+.budget-total-label {
+  font-size: 11px;
+  opacity: 0.9;
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.budget-total {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+}
+
+.budget-progress {
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.budget-progress-bar {
+  height: 100%;
+  background: white;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.budget-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.budget-spent,
+.budget-remaining {
+  color: inherit;
+}
+
+/* Calculator */
+.calculator {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.calc-display {
+  text-align: right;
+  padding: var(--spacing-md);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.calc-amount {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.calc-converted {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.calc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.calc-btn {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.calc-btn:hover {
+  background: var(--border-color);
+}
+
+.calc-btn:active {
+  transform: scale(0.95);
+}
+
+.calc-btn.action {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  grid-row: span 2;
+}
+
+.calc-btn.action:hover {
+  background: var(--color-accent);
+}
+
+.calc-btn.clear {
+  color: #DC2626;
+}
+
+.calc-btn.wide {
+  grid-column: span 2;
+}
+
+/* Category Selector */
+.category-selector {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  overflow-x: auto;
+  padding: var(--spacing-xs) 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-selector::-webkit-scrollbar {
+  display: none;
+}
+
+.category-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.category-btn:hover {
+  background: var(--bg-primary);
+}
+
+.category-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+}
+
+/* Expense List */
+.expense-list {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.expense-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.expense-item:last-child {
+  border-bottom: none;
+}
+
+.expense-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.expense-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: var(--bg-primary);
+}
+
+.expense-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.expense-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.expense-jpy {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.expense-twd {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* ============================================
+   Guide Tab - 攻略頁面
+   ============================================ */
+.guide-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.guide-icon {
+  font-size: 24px;
+}
+
+.guide-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.guide-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.guide-section:last-child {
+  margin-bottom: 0;
+}
+
+.guide-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.guide-text {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.guide-list {
+  list-style: none;
+}
+
+.guide-list li {
+  position: relative;
+  padding-left: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.guide-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+.guide-info {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding: var(--spacing-sm);
+  background: var(--bg-primary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ============================================
+   Modals
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--spacing-lg);
+  width: 100%;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow-y: auto;
+  animation: slideUp var(--transition-normal);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Settings */
+.settings-section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.settings-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+  display: block;
+}
+
+.settings-input {
+  width: 100%;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 15px;
+}
+
+.settings-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+/* ============================================
+   Empty & Loading States
+   ============================================ */
+.empty-state {
+  text-align: center;
+  padding: var(--spacing-xl) var(--spacing-md);
+  color: var(--text-muted);
+}
+
+.empty-state-icon {
+  font-size: 40px;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.5;
+}
+
+.empty-state-text {
+  font-size: 14px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   Utilities
+   ============================================ */
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (min-width: 640px) {
+  .modal-content {
+    border-radius: var(--radius-xl);
+    margin: var(--spacing-xl);
+  }
+  
+  .day-chip {
+    min-width: 60px;
+  }
+  
+  .calc-btn {
+    font-size: 20px;
+    padding: var(--spacing-lg);
+  }
+}
