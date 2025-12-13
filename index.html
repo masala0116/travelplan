@@ -145,6 +145,11 @@
                     <button class="category-btn" data-category="other">📦 其他</button>
                 </div>
 
+                <!-- Note Input -->
+                <div class="note-input-container">
+                    <input type="text" id="expenseNote" class="note-input" placeholder="📝 新增註記 (選填)" maxlength="50">
+                </div>
+
                 <!-- Expense List -->
                 <div class="section-title mt-lg">📊 消費紀錄</div>
                 <div id="expenseList">
@@ -183,6 +188,43 @@
                 
                 <button class="nav-button" id="saveSettingsBtn" style="width: 100%; justify-content: center; margin-top: 16px;">
                     💾 儲存設定
+                </button>
+            </div>
+        </div>
+
+        <!-- ==================== Edit Expense Modal ==================== -->
+        <div class="modal-overlay" id="editExpenseModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">✏️ 編輯消費</h3>
+                    <button class="modal-close" onclick="App.closeEditExpenseModal()">✕</button>
+                </div>
+                
+                <input type="hidden" id="editExpenseId">
+                
+                <div class="settings-section">
+                    <label class="settings-label">金額 (¥)</label>
+                    <input type="number" id="editExpenseAmount" class="settings-input" placeholder="輸入金額">
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">分類</label>
+                    <div class="edit-category-grid" id="editCategoryGrid">
+                        <button class="edit-category-btn" data-category="food">🍜 餐飲</button>
+                        <button class="edit-category-btn" data-category="transport">🚃 交通</button>
+                        <button class="edit-category-btn" data-category="ticket">🎫 門票</button>
+                        <button class="edit-category-btn" data-category="shopping">🛒 購物</button>
+                        <button class="edit-category-btn" data-category="other">📦 其他</button>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <label class="settings-label">註記</label>
+                    <input type="text" id="editExpenseNote" class="settings-input" placeholder="新增註記 (選填)" maxlength="50">
+                </div>
+                
+                <button class="nav-button" id="saveExpenseBtn" onclick="App.saveEditedExpense()" style="width: 100%; justify-content: center; margin-top: 16px;">
+                    💾 儲存修改
                 </button>
             </div>
         </div>

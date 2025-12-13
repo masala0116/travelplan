@@ -457,6 +457,8 @@ const App = {
     if (amount <= 0) return;
 
     const category = EXPENSE_CATEGORIES.find(c => c.id === this.state.selectedCategory);
+    const noteInput = document.getElementById('expenseNote');
+    const note = noteInput ? noteInput.value.trim() : '';
     
     this.state.expenses.push({
       id: Date.now(),
@@ -465,12 +467,92 @@ const App = {
       categoryIcon: category?.icon || '📦',
       categoryName: category?.name || '其他',
       date: new Date().toLocaleDateString('zh-TW'),
-      twd: Math.round(amount * this.state.settings.exchangeRate)
+      twd: Math.round(amount * this.state.settings.exchangeRate),
+      note: note
     });
 
     this.state.calcValue = '0';
+    if (noteInput) noteInput.value = '';
     this.saveState();
     this.renderBudget();
+  },
+
+  // 刪除消費紀錄
+  deleteExpense(id) {
+    if (!confirm('確定要刪除這筆消費紀錄嗎？')) return;
+    
+    this.state.expenses = this.state.expenses.filter(e => e.id !== id);
+    this.saveState();
+    this.renderBudget();
+  },
+
+  // 清空所有消費紀錄
+  clearAllExpenses() {
+    if (!confirm('確定要清空所有消費紀錄嗎？此操作無法復原！')) return;
+    
+    this.state.expenses = [];
+    this.saveState();
+    this.renderBudget();
+  },
+
+  // 開啟編輯消費模態框
+  openEditExpenseModal(id) {
+    const expense = this.state.expenses.find(e => e.id === id);
+    if (!expense) return;
+
+    document.getElementById('editExpenseId').value = id;
+    document.getElementById('editExpenseAmount').value = expense.amount;
+    document.getElementById('editExpenseNote').value = expense.note || '';
+    
+    // 設定分類選擇
+    document.querySelectorAll('.edit-category-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.category === expense.category);
+    });
+    
+    // 綁定分類按鈕事件
+    document.querySelectorAll('.edit-category-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.edit-category-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      };
+    });
+
+    document.getElementById('editExpenseModal').classList.add('active');
+  },
+
+  // 關閉編輯消費模態框
+  closeEditExpenseModal() {
+    document.getElementById('editExpenseModal').classList.remove('active');
+  },
+
+  // 儲存編輯的消費
+  saveEditedExpense() {
+    const id = parseInt(document.getElementById('editExpenseId').value);
+    const amount = parseInt(document.getElementById('editExpenseAmount').value) || 0;
+    const note = document.getElementById('editExpenseNote').value.trim();
+    const activeBtn = document.querySelector('.edit-category-btn.active');
+    const categoryId = activeBtn ? activeBtn.dataset.category : 'other';
+
+    if (amount <= 0) {
+      alert('請輸入有效的金額');
+      return;
+    }
+
+    const category = EXPENSE_CATEGORIES.find(c => c.id === categoryId);
+    const expense = this.state.expenses.find(e => e.id === id);
+    
+    if (expense) {
+      expense.amount = amount;
+      expense.category = categoryId;
+      expense.categoryIcon = category?.icon || '📦';
+      expense.categoryName = category?.name || '其他';
+      expense.twd = Math.round(amount * this.state.settings.exchangeRate);
+      expense.note = note;
+    }
+
+    this.saveState();
+    this.renderBudget();
+    this.closeEditExpenseModal();
   },
 
   // 渲染消費列表
@@ -493,16 +575,20 @@ const App = {
 
     const html = sorted.map(expense => `
       <div class="expense-item">
-        <div class="expense-info">
+        <div class="expense-info" onclick="App.openEditExpenseModal(${expense.id})">
           <div class="expense-icon ${expense.category}">${expense.categoryIcon}</div>
           <div class="expense-details">
             <div class="expense-name">${expense.categoryName}</div>
-            <div class="expense-date">${expense.date}</div>
+            <div class="expense-date">${expense.date}${expense.note ? ` · <span class="expense-note">${expense.note}</span>` : ''}</div>
           </div>
         </div>
-        <div class="expense-amount">
-          <div class="expense-jpy">¥ ${expense.amount.toLocaleString()}</div>
-          <div class="expense-twd">≈ NT$ ${expense.twd.toLocaleString()}</div>
+        <div class="expense-right">
+          <div class="expense-amount" onclick="App.openEditExpenseModal(${expense.id})">
+            <div class="expense-jpy">¥ ${expense.amount.toLocaleString()}</div>
+            <div class="expense-twd">≈ NT$ ${expense.twd.toLocaleString()}</div>
+          </div>
+          <button class="expense-edit-btn" onclick="App.openEditExpenseModal(${expense.id})">✎</button>
+          <button class="expense-delete-btn" onclick="App.deleteExpense(${expense.id})">✕</button>
         </div>
       </div>
     `).join('');

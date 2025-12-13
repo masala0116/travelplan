@@ -1011,6 +1011,38 @@ body {
   color: white;
 }
 
+/* Note Input */
+.note-input-container {
+  margin-bottom: var(--spacing-lg);
+}
+
+.note-input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+}
+
+.note-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(232, 180, 184, 0.2);
+}
+
+.note-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Expense Note */
+.expense-note {
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
 /* Expense List */
 .expense-list {
   background: var(--bg-card);
@@ -1070,6 +1102,95 @@ body {
   font-size: 11px;
   color: var(--text-muted);
   text-align: right;
+}
+
+.expense-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.expense-delete-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--bg-primary);
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.expense-delete-btn:hover {
+  background: #FFE5E5;
+  color: #E57373;
+  opacity: 1;
+}
+
+.expense-edit-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--bg-primary);
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.expense-edit-btn:hover {
+  background: #E5F0FF;
+  color: #5B8DEF;
+  opacity: 1;
+}
+
+.expense-info,
+.expense-amount {
+  cursor: pointer;
+}
+
+.expense-info:hover .expense-name,
+.expense-amount:hover .expense-jpy {
+  color: var(--color-primary);
+}
+
+/* Edit Category Grid */
+.edit-category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.edit-category-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-category-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--text-primary);
+}
+
+.edit-category-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
 }
 
 /* ============================================
